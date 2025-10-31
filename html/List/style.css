@@ -1,0 +1,36 @@
+body{
+
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: hsl(300, 4%, 95%);
+    color: rgb(87, 87, 87);
+    padding: 50px;
+    
+}
+
+h3{
+
+    color: brown;
+
+}
+ol{
+
+    list-style-type: style type decimal;
+    padding-left: 30px;
+}
+ul{
+
+    list-style-type: disc;
+    padding-left: 30px;
+
+}
+dl dt{
+
+    color: rgb(73, 177, 218);
+    margin-top: 10px;
+}
+dl dd{
+    margin-left: 20px;
+  color: rgb(73, 218, 117);
+
+
+}

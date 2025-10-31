@@ -1,0 +1,67 @@
+body {
+    font-family: 'Trebuchet MS', Arial, sans-serif;
+    background-color: #f0f8ff;
+    color: #222;
+    margin: 20px auto;
+    max-width: 900px;
+    padding: 20px;
+    line-height: 1.6;
+    text-align: center; 
+}
+
+h1 {
+    color: #52489c;
+    border-bottom: 2px solid #52489c;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1rem;
+    margin-top: 8px;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+img {
+    display: block;
+    margin: 0 auto 15px auto; 
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+iframe, video {
+    display: block;
+    margin: 0 auto 15px auto;
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+audio {
+    display: block;
+    margin: 0 auto 30px auto;
+    width: 100%;
+    max-width: 600px;
+}
+
+br {
+    margin-bottom: 15px;
+}
+
+iframe[src^="https://example.com/"] {
+    border: 2px solid #52489c;
+    border-radius: 12px;
+}
+
+a {
+    color: #52489c;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #7963c4;
+}
