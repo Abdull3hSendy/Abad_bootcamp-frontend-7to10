@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Example 14</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+        .card {
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #4d8ed3;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h2>Loop Insert Into Existing Section</h2>
+    <div id="teamSection"></div>
+
+    <script>
+        const team = [
+            { name: "Abdullah", job: "Designer", city: "Riyadh" },
+            { name: "Faisal", job: "Developer", city: "Jeddah" },
+            { name: "Mmdoah", job: "Manager", city: "Dammam" },
+            { name: "Nashwa", job: "Engineer", city: "Abha" }
+        ];
+
+        const section = document.getElementById("teamSection");
+
+        team.forEach(member => {
+            const card = document.createElement("div");
+            card.className = "card";
+            card.innerHTML = `
+                <h3><u>${member.name}</u></h3>
+                <p><b>Job:</b> ${member.job}</p>
+                <p><b>City:</b> ${member.city}</p>
+            `;
+            section.appendChild(card);
+        });
+    </script>
+</body>
+</html>

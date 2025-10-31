@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Example 14</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+        .card {
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #4d8ed3;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h2>Users From API</h2>
+    <div id="teamSection">Loading users...</div>
+
+    <script>
+        const section = document.getElementById("teamSection");
+
+        fetch("https://jsonplaceholder.typicode.com/users")
+            .then(response => response.json())
+            .then(users => {
+                section.innerHTML = "";
+                users.forEach(user => {
+                    const card = document.createElement("div");
+                    card.className = "card";
+                    card.innerHTML = `
+                        <h3><u>${user.name}</u></h3>
+                        <p><strong>Username:</strong> ${user.username}</p>
+                        <p><strong>Email:</strong> ${user.email}</p>
+                        <p><strong>City:</strong> ${user.address.city}</p>
+                    `;
+                    section.appendChild(card);
+                });
+            })
+            .catch(error => {
+                section.innerHTML = "Failed to load users.";
+                console.error(error);
+            });
+    </script>
+</body>
+</html>

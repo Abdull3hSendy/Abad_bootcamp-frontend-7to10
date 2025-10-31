@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Students Table</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      padding: 10px;
+    }
+    table {
+      border-collapse: collapse;
+      margin-top: 20px;
+      width: 100%;
+      max-width: 400px;
+    }
+    th, td {
+      border: 1px solid #333;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    caption {
+      font-weight: bold;
+      margin-bottom: 6px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <h2>Students List</h2>
+
+  <table>
+    <caption>Names and Ages</caption>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Age</th>
+      </tr>
+    </thead>
+    <tbody id="studentsTable"></tbody>
+  </table>
+
+  <script>
+    const students = [
+      { Name: "Abdullah", Age: 35 },
+      { Name: "Faisal", Age: 35 },
+      { Name: "Ahmad", Age: 35 },
+      { Name: "Ali", Age: 35 }
+      
+    ];
+
+    const tbody = document.getElementById("studentsTable");
+
+    students.forEach((student, index) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${escapeHtml(student.Name)}</td>
+        <td>${student.Age}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    function escapeHtml(text) {
+      const div = document.createElement("div");
+      div.textContent = text;
+      return div.innerHTML;
+    }
+  </script>
+</body>
+</html>

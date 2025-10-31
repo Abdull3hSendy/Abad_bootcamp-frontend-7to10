@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض المنتجات</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            flex: 1;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+        
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .search-bar input {
+            width: 70%;
+            padding: 15px;
+            border: none;
+            border-radius: 30px 0 0 30px;
+            font-size: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-bar button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 0 30px 30px 0;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s;
+        }
+        
+        .search-bar button:hover {
+            background: #ff5252;
+        }
+        
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .category {
+            background: white;
+            padding: 15px 25px;
+            border-radius: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .category i {
+            color: #6a11cb;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-image {
+            height: 200px;
+            background: linear-gradient(45deg, #6a89cc, #4a69bd);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .product-description {
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+        
+        .product-price {
+            font-weight: bold;
+            color: #6a11cb;
+            font-size: 18px;
+        }
+        
+        .product-rating {
+            color: #f39c12;
+        }
+        
+        .product-action {
+            display: flex;
+            justify-content: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-top: 1px solid #eee;
+        }
+        
+        .add-to-cart {
+            background: #6a11cb;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background: #2575fc;
+        }
+        
+        h2 {
+            text-align: center;
+            margin: 40px 0 20px;
+            color: #2c3e50;
+            font-size: 28px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            border-radius: 2px;
+        }
+        
+        /* تنسيقات الفوتر */
+        footer {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 60px;
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+        
+        .footer-section {
+            padding: 10px;
+        }
+        
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 2px;
+            background: #6a11cb;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-links a:hover {
+            color: #6a11cb;
+        }
+        
+        .footer-links i {
+            width: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: #6a11cb;
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .newsletter-form {
+            display: flex;
+            margin-top: 15px;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+        }
+        
+        .newsletter-form button {
+            background: #6a11cb;
+            color: white;
+            border: none;
+            padding: 0 15px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .search-bar input {
+                width: 60%;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .search-bar {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .search-bar input, .search-bar button {
+                width: 90%;
+                border-radius: 30px;
+                margin-bottom: 10px;
+            }
+            
+            .categories {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .category {
+                width: 90%;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-form input, .newsletter-form button {
+                width: 100%;
+                border-radius: 4px;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>متجر الإلكترونيات</h1>
+            <p>أفضل المنتجات بأفضل الأسعار</p>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="ابحث عن المنتج الذي تريده...">
+                <button><i class="fas fa-search"></i> بحث</button>
+            </div>
+        </header>
+        
+        <div class="categories">
+            <div class="category">
+                <i class="fas fa-laptop"></i>
+                <span>أجهزة الكمبيوتر</span>
+            </div>
+            <div class="category">
+                <i class="fas fa-mobile-alt"></i>
+                <span>الهواتف</span>
+            </div>
+            <div class="category">
+                <i class="fas fa-headphones"></i>
+                <span>الإكسسوارات</span>
+            </div>
+            <div class="category">
+                <i class="fas fa-camera"></i>
+                <span>الكاميرات</span>
+            </div>
+        </div>
+        
+        <h2>أحدث المنتجات</h2>
+        
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image">Shimano Stradic SW</div>
+                <div class="product-info">
+                    <div class="product-title">Shimano Stradic SW</div>
+                    <div class="product-description">ماكينة صيد يابانية عالية الجودة مع تصميم متين وأداء متميز.</div>
+                    <div class="product-meta">
+                        <div class="product-price">1,250 ر.س</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-action">
+                    <button class="add-to-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        أضف إلى السلة
+                    </button>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-image">Shimano Nazaré</div>
+                <div class="product-info">
+                    <div class="product-title">Shimano Nazaré</div>
+                    <div class="product-description">ماكينة صيد قوية ومناسبة للصيد في المياه المالحة.</div>
+                    <div class="product-meta">
+                        <div class="product-price">1,800 ر.س</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-action">
+                    <button class="add-to-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        أضف إلى السلة
+                    </button>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-image">Shimano Sala</div>
+                <div class="product-info">
+                    <div class="product-title">Shimano Sala</div>
+                    <div class="product-description">ماكينة صيد متوسطة الحجم مناسبة للصيد في المياه العذبة.</div>
+                    <div class="product-meta">
+                        <div class="product-price">950 ر.س</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-action">
+                    <button class="add-to-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        أضف إلى السلة
+                    </button>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-image">USB+</div>
+                <div class="product-info">
+                    <div class="product-title">USB+</div>
+                    <div class="product-description">شاحن متنقل سعة 10000 مللي أمبير بشاحن سريع وتصميم أنيق.</div>
+                    <div class="product-meta">
+                        <div class="product-price">120 ر.س</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-action">
+                    <button class="add-to-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        أضف إلى السلة
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+      
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image">ROSS</div>
+                <div class="product-info">
+                    <div class="product-title">ROSS</div>
+                    <div class="product-description">سماعة رأس لاسلكية مع تقنية إلغاء الضوضاء ومدة بطارية طويلة.</div>
+                    <div class="product-meta">
+                        <div class="product-price">350 ر.س</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-action">
+                    <button class="add-to-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        أضف إلى السلة
+                    </button>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-image">RELS</div>
+                <div class="product-info">
+                    <div class="product-title">RELS</div>
+                    <div class="product-description">حامل متعدد الوظائف للهواتف والأجهزة اللوحية مع إمكانية التعديل.</div>
+                    <div class="product-meta">
+                        <div class="product-price">85 ر.س</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-action">
+                    <button class="add-to-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        أضف إلى السلة
+                    </button>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-image">Trading Accessories</div>
+                <div class="product-info">
+                    <div class="product-title">Trading Accessories</div>
+                    <div class="product-description">مجموعة إكسسوارات تداول متكاملة مع حافظة وأنظمة حماية.</div>
+                    <div class="product-meta">
+                        <div class="product-price">200 ر.س</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-action">
+                    <button class="add-to-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        أضف إلى السلة
+                    </button>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-image">المنطقة النهائية</div>
+                <div class="product-info">
+                    <div class="product-title">المنطقة النهائية</div>
+                    <div class="product-description">جهاز تحكم عن بعد متعدد الوظائف مع مدى يصل إلى 20 متراً.</div>
+                    <div class="product-meta">
+                        <div class="product-price">150 ر.س</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-action">
+                    <button class="add-to-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        أضف إلى السلة
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- الفوتر -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>عن المتجر</h3>
+                <p>متجرنا يقدم أفضل المنتجات الإلكترونية بأعلى جودة وأسعار تنافسية. نحن نعمل منذ عام 2010 على توفير أحدث المنتجات لعملائنا الكرام.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>روابط سريعة</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-home"></i> الرئيسية</a></li>
+                    <li><a href="#"><i class="fas fa-shopping-cart"></i> المنتجات</a></li>
+                    <li><a href="#"><i class="fas fa-tags"></i> العروض</a></li>
+                    <li><a href="#"><i class="fas fa-info-circle"></i> عنا</a></li>
+                    <li><a href="#"><i class="fas fa-phone"></i> اتصل بنا</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>وسائل التواصل</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> الرياض، المملكة العربية السعودية</a></li>
+                    <li><a href="tel:+966112345678"><i class="fas fa-phone"></i> 966112345678+</a></li>
+                    <li><a href="mailto:info@example.com"><i class="fas fa-envelope"></i> info@example.com</a></li>
+                    <li><a href="#"><i class="fas fa-clock"></i> من الأحد إلى الخميس: 8ص - 10م</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>النشرة البريدية</h3>
+                <p>اشترك في نشرتنا البريدية لتصلك آخر العروض والمنتجات الجديدة</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="بريدك الإلكتروني" required>
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>جميع الحقوق محفوظة &copy; 2023 متجر الإلكترونيات. تم التطوير بواسطة <a href="#" style="color: #6a11cb;">فريق المتجر</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // يمكن إضافة JavaScript هنا للتفاعلية
+        document.addEventListener('DOMContentLoaded', function() {
+            const addToCartButtons = document.querySelectorAll('.add-to-cart');
+            
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const productTitle = this.closest('.product-card').querySelector('.product-title').textContent;
+                    alert(`تم إضافة ${productTitle} إلى سلة التسوق الخاصة بك!`);
+                });
+            });
+            
+            const categories = document.querySelectorAll('.category');
+            
+            categories.forEach(category => {
+                category.addEventListener('click', function() {
+                    const categoryName = this.querySelector('span').textContent;
+                    alert(`تم اختيار قسم: ${categoryName}`);
+                });
+            });
+            
+            // تفعيل إرسال النشرة البريدية
+            const newsletterForm = document.querySelector('.newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const emailInput = this.querySelector('input[type="email"]');
+                    alert(`شكراً لك على اشتراكك بالنشرة البريدية باستخدام: ${emailInput.value}`);
+                    emailInput.value = '';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

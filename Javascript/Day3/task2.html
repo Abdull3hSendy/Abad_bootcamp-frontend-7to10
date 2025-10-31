@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Student Table</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Student Grades</h1>
+
+    <table id="studentTable">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Grade</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        const students = [
+            { name: "Ali", grade: 80 },
+            { name: "Abdullah", grade: 95 },
+            { name: "Omar", grade: 78 }
+        ];
+
+        const tableBody = document.querySelector("#studentTable tbody");
+
+        students.forEach(student => {
+            const row = document.createElement("tr");
+
+            const nameCell = document.createElement("td");
+            nameCell.textContent = student.name;
+            row.appendChild(nameCell);
+
+            const gradeCell = document.createElement("td");
+            gradeCell.textContent = student.grade;
+            row.appendChild(gradeCell);
+
+            tableBody.appendChild(row);
+        });
+    </script>
+
+</body>
+</html>

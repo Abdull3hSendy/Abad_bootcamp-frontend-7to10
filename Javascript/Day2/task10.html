@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>simple loop</title>
+  <style>
+    body 
+    {
+      font-family: 'Times New Roman', Times, serif;
+      padding: 20px;
+
+    }
+    ul{
+      background-color: #fff;
+      
+    }
+  </style>
+</head>
+<body>
+    <h1>Simple Loop Example: Display from 1 to 10 </h1>
+    <ul id="numberlist"></ul>
+  <script>
+    const list = document.getElementById("numberlist");
+    for (let i = 1; i <= 10; i++)  
+    {
+        const item = document.createElement("li")
+        item.textContent = "Number: "+i;
+        list.append(item);
+    }
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Show All Data</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .output {
+      margin: 15px 0;
+      padding: 10px;
+      background: #f0f8ff;
+      border: 1px solid #c4dff6;
+      border-radius: 5px;
+    }
+    .error { color: #b02a2a; }
+    .success { color: #1f6e3a; }
+    label { display: block; margin-top: 8px; }
+    input { padding: 6px; width: 250px; box-sizing: border-box; }
+    button { margin-top: 10px; padding: 8px 12px; }
+  </style>
+</head>
+<body>
+  <h1>Show All Data</h1>
+
+  <label for="name">Name</label>
+  <input id="name" type="text">
+
+  <label for="age">Age</label>
+  <input id="age" type="number" min="0">
+
+  <label for="email">Email</label>
+  <input id="email" type="email">
+
+  <button onclick="showAll()">Show Data</button>
+
+  <div id="result" class="output"></div>
+
+  <script>
+    function showAll() {
+      const name = document.getElementById("name").value.trim();
+      const ageRaw = document.getElementById("age").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const result = document.getElementById("result");
+      result.className = "output";
+
+      if (!name || !ageRaw || !email) {
+        result.textContent = "Fill name, age, and email.";
+        result.classList.add("error");
+        return;
+      }
+
+      const age = Number(ageRaw);
+      if (isNaN(age) || age < 0) {
+        result.textContent = "Invalid age.";
+        result.classList.add("error");
+        return;
+      }
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        result.textContent = "Invalid email.";
+        result.classList.add("error");
+        return;
+      }
+
+      result.innerHTML = 
+        "Entered Data:<br>" +
+        "Name: " + escapeHtml(name) + "<br>" +
+        "Age: " + age + " years old<br>" +
+        "Email: " + escapeHtml(email);
+      result.classList.add("success");
+    }
+
+    function escapeHtml(text) {
+      const d = document.createElement("div");
+      d.textContent = text;
+      return d.innerHTML;
+    }
+  </script>
+</body>
+</html>

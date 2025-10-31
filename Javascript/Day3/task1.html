@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toggle CSS Class in One File</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+        }
+
+        #para {
+            padding: 10px;
+            border: 1px solid #ccc;
+            transition: background-color 0.3s ease;
+        }
+
+        .highlight {
+            background-color: yellow;
+            color: black;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Toggle </h1>
+
+    <p id="para">
+        Abdullah
+    </p>
+
+    <button id="btn">Toggle Highlight</button>
+
+    <script>
+        document.getElementById("btn").addEventListener("click", () => {
+            document.getElementById("para").classList.toggle("highlight");
+        });
+    </script>
+
+</body>
+</html>

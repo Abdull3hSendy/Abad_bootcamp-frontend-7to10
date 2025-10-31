@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+    <h2>Filter List on Search</h2>
+    <input type="text" id="searchBox" placeholder="Search names...">
+
+    <ul id="nameList">
+        <li>Abdullah</li>
+        <li>Ahmed</li>
+        <li>Khalid</li>
+        <li>Omar</li>
+        <li>Hassan</li>
+    </ul>
+
+    <script>
+        const searchBox = document.querySelector('#searchBox');
+        const names = document.querySelectorAll('#nameList li');
+
+        searchBox.addEventListener('input', () => {
+            const filter = searchBox.value.toLowerCase();
+            names.forEach(li => {
+                li.style.display = li.textContent.toLowerCase().includes(filter) ? '' : 'none';
+            });
+        });
+    </script>
+
+</body>
+</html>
